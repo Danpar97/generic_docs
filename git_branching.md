@@ -278,3 +278,8 @@ A high-quality PDF version of the figure is provided [here](http://nvie.com/file
 
 Update: And for anyone who requested it: here’s the [gitflow-model.src.key](http://github.com/downloads/nvie/gitflow/Git-branching-model-src.key.zip) of the main diagram image (Apple Keynote).
 
+## Credits
+
+Thanks to [Vincent Driessen](http://nvie.com/about/) for the great [Git branching model](http://nvie.com/posts/a-successful-git-branching-model/) on his blog. This is a markdown version of his blog [post](http://nvie.com/posts/a-successful-git-branching-model/) on Git Branching. 
+
+Branching is part of the larger [Git Workflow tutorial](https://www.atlassian.com/git/tutorials/comparing-workflows)
