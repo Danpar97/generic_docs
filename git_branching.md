@@ -61,7 +61,7 @@ Feature branches typically exist in developer repos only, not in `origin`.
 
 When starting work on a new feature, branch off from the develop branch.
 ```sh
-git checkout -b myfeature develop
+$ git checkout -b myfeature develop
 
 Switched to a new branch "myfeature"
 ```
@@ -71,23 +71,23 @@ Switched to a new branch "myfeature"
 Finished features may be merged into the `develop` branch to definitely add them to the upcoming release:
 
 ```sh
-git checkout develop
+$ git checkout develop
 
 Switched to branch 'develop'
 ```
 ```sh
-git merge --no-ff myfeature
+$ git merge --no-ff myfeature
 
 Updating ea1b82a..05e9557
 (Summary of changes)
 ```
 ```sh
-git branch -d myfeature
+$ git branch -d myfeature
 
 Deleted branch myfeature (was 05e9557).
 ```
 ```sh
-git push origin develop
+$ git push origin develop
 ```
 
 The `--no-ff` flag causes the merge to always create a new commit object, even if the merge could be performed with a fast-forward. This avoids losing information about the historical existence of a feature branch and groups together all commits that together added the feature. Compare:
@@ -116,17 +116,17 @@ It is exactly at the start of a release branch that the upcoming release gets as
 
 Release branches are created from the `develop` branch. For example, say version 1.1.5 is the current production release and we have a big release coming up. The state of `develop` is ready for the “next release” and we have decided that this will become version 1.2 (rather than 1.1.6 or 2.0). So we branch off and give the release branch a name reflecting the new version number:
 ```sh
-git checkout -b release-1.2 develop
+$ git checkout -b release-1.2 develop
 
 Switched to a new branch "release-1.2"
 ```
 ```sh
-./bump-version.sh 1.2
+$ ./bump-version.sh 1.2
 
 Files modified successfully, version bumped to 1.2.
 ```
 ```sh
-git commit -a -m "Bumped version number to 1.2"
+$ git commit -a -m "Bumped version number to 1.2"
 
 [release-1.2 74d9424] Bumped version number to 1.2
 1 files changed, 1 insertions(+), 1 deletions(-)
@@ -141,18 +141,18 @@ When the state of the release branch is ready to become a real release, some act
 
 The first two steps in Git:
 ```sh
-git checkout master
+$ git checkout master
 
 Switched to branch 'master'
 ```
 ```sh
-git merge --no-ff release-1.2
+$ git merge --no-ff release-1.2
 
 Merge made by recursive.
 (Summary of changes)
 ```
 ```sh
-git tag -a 1.2
+$ git tag -a 1.2
 ```
 
 The release is now done, and tagged for future reference.
@@ -161,12 +161,12 @@ The release is now done, and tagged for future reference.
 
 To keep the changes made in the release branch, we need to merge those back into `develop`, though. In Git:
 ```sh
-git checkout develop
+$ git checkout develop
 
 Switched to branch 'develop'
 ```
 ```sh
-git merge --no-ff release-1.2
+$ git merge --no-ff release-1.2
 
 Merge made by recursive.
 (Summary of changes)
@@ -176,7 +176,7 @@ This step may well lead to a merge conflict (probably even, since we have change
 
 Now we are really done and the release branch may be removed, since we don’t need it anymore:
 ```sh
-git branch -d release-1.2
+$ git branch -d release-1.2
 
 Deleted branch release-1.2 (was ff452fe).
 ```
@@ -200,17 +200,17 @@ The essence is that work of team members (on the `develop` branch) can continue,
 
 Hotfix branches are created from the `master` branch. For example, say version 1.2 is the current production release running live and causing troubles due to a severe bug. But changes on `develop` are yet unstable. We may then branch off a hotfix branch and start fixing the problem:
 ```sh
-git checkout -b hotfix-1.2.1 master
+$ git checkout -b hotfix-1.2.1 master
 
 Switched to a new branch "hotfix-1.2.1"
 ```
 ```sh
-./bump-version.sh 1.2.1
+$ ./bump-version.sh 1.2.1
 
 Files modified successfully, version bumped to 1.2.1.
 ```
 ```sh
-git commit -a -m "Bumped version number to 1.2.1"
+$ git commit -a -m "Bumped version number to 1.2.1"
 
 [hotfix-1.2.1 41e61bb] Bumped version number to 1.2.1
 1 files changed, 1 insertions(+), 1 deletions(-)
@@ -220,7 +220,7 @@ Don’t forget to bump the version number after branching off!
 
 Then, fix the bug and commit the fix in one or more separate commits.
 ```sh
-git commit -m "Fixed severe production problem"
+$ git commit -m "Fixed severe production problem"
 
 [hotfix-1.2.1 abbe5d6] Fixed severe production problem
 5 files changed, 32 insertions(+), 17 deletions(-)
@@ -232,30 +232,30 @@ When finished, the bugfix needs to be merged back into `master`, but also needs 
 
 First, update master and tag the release.
 ```sh
-git checkout master
+$ git checkout master
 
 Switched to branch 'master'
 ```
 ```sh
-git merge --no-ff hotfix-1.2.1
+$ git merge --no-ff hotfix-1.2.1
 
 Merge made by recursive.
 (Summary of changes)
 ```
 ```sh
-git tag -a 1.2.1
+$ git tag -a 1.2.1
 ```
 
 *Edit:* You might as well want to use the -s or -u <key> flags to sign your tag cryptographically.
 
 Next, include the bugfix in develop, too:
 ```sh
-git checkout develop
+$ git checkout develop
 
 Switched to branch 'develop'
 ```
 ```sh
-git merge --no-ff hotfix-1.2.1
+$ git merge --no-ff hotfix-1.2.1
 
 Merge made by recursive.
 (Summary of changes)
@@ -265,7 +265,7 @@ The one exception to the rule here is that, *when a release branch currently exi
 
 Finally, remove the temporary branch:
 ```sh
-git branch -d hotfix-1.2.1
+$ git branch -d hotfix-1.2.1
 
 Deleted branch hotfix-1.2.1 (was abbe5d6).
 ```
